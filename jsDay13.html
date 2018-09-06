@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			margin:0;
+			padding: 0;
+			background: #cdcdcd;
+		}
+		header{
+			height: 50px;
+			background: #000;
+			width: auto;
+		}
+		header div{
+			width: 600px;
+			height: 50px;
+			margin: 0 auto;
+		}
+		header div label{
+			float: left;
+			width: 100px;
+			line-height: 50px;
+			color: #DDD;
+			font-size: 24px;
+			cursor: pointer;
+		}
+		header div input{
+		    float: right;
+			width: 60%;
+		    height: 24px;
+		    margin-top: 12px;
+		    text-indent: 10px;
+		    border-radius: 5px;
+		    box-shadow: 0 1px 0 rgba(255,255,255,0.24), 0 1px 6px rgba(0,0,0,0.45) inset;
+		    border: none;
+		}
+		section{
+			width: 600px;
+			height: 800px;
+			padding: 0 10px;
+			margin: 0 auto;
+		}
+		section h2 div{
+			width: 20px;
+			height: 20px;
+			background: #E6E6FA;
+			border-radius: 50%;
+			font-size: 14px;
+			float: right;
+			text-indent:outline;
+		}
+		section .h1m{
+			width: auto;
+			/*height: 350px;*/
+		}
+		section .h1m div{
+			height: 32px;
+		    line-height: 32px;
+		    background: #fff;
+		    position: relative;
+		    margin-bottom: 10px;
+		    padding: 0 45px;
+		    border-radius: 3px;
+		    border-left: 5px solid #629A9C;
+		}
+		section .h1m div input{
+		    position: absolute;
+		    top: 2px;
+		    left: 10px;
+		    width: 22px;
+		    height: 22px;
+		    cursor: pointer;
+		    background: #ccc;
+		}
+		section .h1m div p{
+			margin: 0;
+		}
+		section .h1m div a{
+		    position: absolute;
+		    top: 2px;
+		    right: 5px;
+		    /*display: inline-block;*/
+		    width: 14px;
+		    height: 12px;
+		    border-radius: 14px;
+		    border: 6px double #FFF;
+		    background: #CCC;
+		    line-height: 14px;
+		    text-align: center;
+		    color: #FFF;
+		    font-weight: bold;
+		    font-size: 14px;
+		    /*cursor: pointer;*/
+		}
+		section .h2m{
+			width: auto;
+			/*height: 350px;*/
+		}
+		section .h2m div{
+			height: 32px;
+		    line-height: 32px;
+		    background: #e2e2e2;
+		    position: relative;
+		    margin-bottom: 10px;
+		    padding: 0 45px;
+		    border-radius: 3px;
+		    border-left: 5px solid #adacac;
+		}
+		section .h2m div input{
+		    position: absolute;
+		    top: 2px;
+		    left: 10px;
+		    width: 22px;
+		    height: 22px;
+		    cursor: pointer;
+		    background: #ccc;
+		}
+		section .h2m div p{
+			margin: 0;
+		}
+		section .h2m div a{
+		    position: absolute;
+		    top: 2px;
+		    right: 5px;
+		    /*display: inline-block;*/
+		    width: 14px;
+		    height: 12px;
+		    border-radius: 14px;
+		    border: 6px double #FFF;
+		    background: #CCC;
+		    line-height: 14px;
+		    text-align: center;
+		    color: #FFF;
+		    font-weight: bold;
+		    font-size: 14px;
+		    /*cursor: pointer;*/
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div>
+			<label>ToDoList</label>
+			<input type="text" name="title" placeholder="添加ToDo">
+		</div>
+	</header>
+	<section>
+		<h2>正在进行
+			<div class="zhengzair">
+				1
+			</div>
+		</h2>
+		<main class="h1m">
+		</main>
+
+
+
+
+		<h2>已经完成
+			<div class="zhengzair1"></div>
+		</h2>
+		<main class="h2m">
+		</main>
+	</section>
+</body>
+</html>
+<script>
+
+	let arr ;
+	let arr1 ;
+	arr = localStorage.arr?localStorage.arr.split(","):[];
+	arr1 = localStorage.arr1?localStorage.arr1.split(","):[];
+	console.log(localStorage);
+	let ma1 = document.querySelector(".h1m");
+	let ma2 = document.querySelector(".h2m");
+	let input = document.querySelector("header div input");
+	let zhengzair = document.querySelector(".zhengzair");
+	let zhengzair1 = document.querySelector(".zhengzair1");
+
+	input.onkeydown = function(e){
+		if(e.keyCode == 13 && this.value != ""){
+			arr.unshift(this.value);
+			
+			ondate();
+			this.value = "";
+			
+
+		}
+	}
+	//将数组的值封装放入到页面里
+	function ondate(){
+		ma1.innerHTML = "";
+		ma2.innerHTML = "";
+		localStorage.arr =arr.join(","); 
+		localStorage.arr1 =arr1.join(",");
+		arr.forEach((item,index)=>{
+			let div = document.createElement("div");
+			let ip = document.createElement("input");
+			ip.setAttribute("type","checkbox");
+			let p=document.createElement("p");
+      		p.innerText=item;
+			let str = `<a href="javascript:;">-</a>`;
+			div.innerHTML = str;
+			div.appendChild(ip);
+			div.appendChild(p);
+			ma1.appendChild(div);
+			zhengzair.innerText = arr.length;
+
+			ip.onclick = function(){
+				arr.splice(index,1);
+				arr1.unshift(item);
+				ondate();
+			}
+			p.onclick=function(){
+	            let ptext=document.createElement("input");
+	            ptext.style = "width:auto";
+	            let text=item;
+	            ptext.value=text;
+	            p.innerText="";
+	            p.appendChild(ptext);
+	            ptext.onblur=function(){
+	                arr.splice(index,1,this.value);
+	                ondate();
+	            }
+	            ptext.focus();
+      		}
+			
+		});
+		arr1.forEach((item,index)=>{
+	        let box=document.createElement("div");
+	        box.className="obj";
+	        let input=document.createElement("input");
+	        input.className="input";
+	        input.setAttribute("type","checkbox");
+	        input.setAttribute("checked","checked");
+	        let p=document.createElement("p");
+	        p.innerText=item;
+	        let del=document.createElement("a");
+	        del.setAttribute("href","javascript:;");
+	        box.appendChild(input);
+	        box.appendChild(p);
+	        box.appendChild(del);
+	        ma2.appendChild(box);
+	     	zhengzair1.innerText = arr1.length;
+	        input.onclick=function () {
+	            arr1.splice(index,1);
+	            arr.push(item);
+	            ondate();
+	        }
+	        del.onclick=function () {
+	            arr1.splice(index,1);
+	            ondate();
+	        }
+	    })
+	}
+
+	// arr1.forEach((item,index)=>{
+	// 	let div = document.createElement("div");
+	// 	let str = `<input type="checkbox" checked="checked"  name="title"><p>${item}</p><a href="javaScript:;">-</a>`;
+		
+	// 	div.innerHTML = str;
+	// 	ma2.appendChild(div);
+	// });
+
+
+</script>

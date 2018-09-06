@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        main{
+            width: 800px;
+            height: 900px;
+            margin: 0 auto;
+            border: 1px solid #123456;
+            overflow: hidden;
+        }
+        .divf{
+            width: 700px;
+            height: 10px;
+            border-bottom: 1px solid #123456;
+            margin: 0 auto;
+            font-size: 20px;
+            padding: 30px;
+            position: absolute;
+            left: 230px;
+
+        }
+        .divm{
+            width:90%;
+            height: 300px;
+            border: 1px solid#123456;
+            margin: 0 auto;
+            margin-left: 5%;
+            margin-top: 400px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="divf">
+            123
+        </div>
+        <textarea class="divm">
+            
+        </textarea>
+        <button class="tj" style="float: right;margin-right:10%;">提交</button>
+       <!-- <input type="text" name="" class="divm"> -->
+    </main>
+</body>
+</html>
+<script>
+    let text = document.querySelector(".divm");
+    let divf = document.querySelector(".divf");
+    let main = document.querySelector("main");
+    let tj = document.querySelector(".tj");
+
+    let num = 30;
+    tj.onclick = function(){
+        num +=50;
+        let t = text.value;
+        let new1 = document.createElement("div");
+
+        new1.style = ` width:700px;height: 10px;border-bottom: 1px solid #123456;margin: 0 autofont-size: 20px; padding: 30px;position: absolute; left: 230px; top:${num}px;`
+        let newt = document.createTextNode(t);
+        console.log(t);
+        new1.innerText = t;
+        // new1.value = t;
+        main.appendChild(new1);
+
+    }
+
+
+
+</script>
